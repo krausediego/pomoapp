@@ -6,7 +6,7 @@ import CircularProgress, {
 } from "react-native-circular-progress-indicator";
 import { Button } from "@/components";
 import { useEffect, useRef } from "react";
-import * as Notifications from "expo-notifications";
+import { darkTheme } from "@/styles/theme";
 
 export default function PomodoroScreen() {
   const progressRef = useRef<ProgressRef>(null);
@@ -17,58 +17,22 @@ export default function PomodoroScreen() {
     progressRef.current?.pause();
   }, [progressRef]);
 
-  useEffect(() => {
-    // Solicitar permissões para notificações
-    const getNotificationPermissions = async () => {
-      const { status } = await Notifications.requestPermissionsAsync();
-      if (status !== "granted") {
-        alert("Você precisa permitir notificações para usar este recurso.");
-      }
-    };
-
-    getNotificationPermissions();
-  }, []);
-
-  const handleSendNotification = async () => {
-    try {
-      // Solicitar permissões para notificações
-      const { status } = await Notifications.requestPermissionsAsync();
-      if (status !== "granted") {
-        alert("Você precisa permitir notificações para usar este recurso.");
-        return;
-      }
-
-      // Enviar notificação
-      await Notifications.scheduleNotificationAsync({
-        content: {
-          title: "Notificação de Teste",
-          body: "Esta é uma notificação de teste.",
-        },
-        trigger: null, // Envia imediatamente
-      });
-
-      alert("Notificação enviada com sucesso!");
-    } catch (error) {
-      console.error("Erro ao enviar notificação:", error);
-    }
-  };
-
   return (
-    <S.Container
-      style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-    >
+    <S.Container>
+      <S.WrapperPrimary />
       <Stack.Screen options={{ headerShown: false }} />
       <Text style={{ color: "white" }}>Pomodoro</Text>
       <CircularProgress
         ref={progressRef}
         // showProgressValue={false}
         value={0}
-        radius={120}
+        radius={140}
         maxValue={maxValue}
         initialValue={maxValue}
         progressValueColor={"#fff"}
-        activeStrokeWidth={15}
-        inActiveStrokeWidth={15}
+        activeStrokeColor={darkTheme.primary}
+        activeStrokeWidth={30}
+        inActiveStrokeWidth={30}
         duration={maxValue * 1000}
         onAnimationComplete={() => alert("time out")}
         // progressFormatter={(value: number) => {
@@ -85,7 +49,6 @@ export default function PomodoroScreen() {
       </Button>
       <Button onPress={() => progressRef.current?.pause()}>Pause</Button>
       <Button onPress={() => progressRef.current?.play()}>Start</Button>
-      <Button onPress={handleSendNotification}>Notificação</Button>
     </S.Container>
   );
 }

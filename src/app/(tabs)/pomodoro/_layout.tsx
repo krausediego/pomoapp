@@ -1,5 +1,11 @@
 import { Stack } from "expo-router";
+import { StatusBar, Platform } from "react-native";
 
 export default function PomodoroLayout() {
-  return <Stack />;
+  return (
+    <>
+      <StatusBar backgroundColor="#FF6347" />
+      <Stack />
+    </>
+  );
 }

@@ -1,8 +1,7 @@
 import { Tabs } from "expo-router";
-import { SafeAreaView } from "react-native-safe-area-context";
 import styled from "styled-components/native";
 
-export const Container = styled(SafeAreaView)`
+export const Container = styled.View`
   flex: 1;
   background-color: ${({ theme }) => theme.background};
 `;
@@ -15,6 +14,7 @@ export const TabsStyle = styled(Tabs).attrs(({ theme }) => ({
       borderTopWidth: 0,
       paddingBottom: 0,
       height: 50,
+      elevation: 0,
     },
   },
 }))``;

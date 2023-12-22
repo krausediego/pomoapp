@@ -3,6 +3,14 @@ import * as S from "./styles";
 import { Tabs } from "expo-router";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
+import * as NavigationBar from "expo-navigation-bar";
+import * as Device from "expo-device";
+import { darkTheme } from "@/styles/theme";
+
+if (Device.osName === "Android") {
+  NavigationBar.setBackgroundColorAsync(darkTheme.background);
+}
+
 export default function AuthLayout() {
   return (
     <AuthProvider>

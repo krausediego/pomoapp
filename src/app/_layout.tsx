@@ -1,9 +1,9 @@
 import { useCallback } from "react";
 import { fonts } from "@/styles/fonts";
-import { darkTheme, lightTheme } from "@/styles/theme";
+import { darkTheme } from "@/styles/theme";
 import { useFonts } from "expo-font";
 import { Slot } from "expo-router";
-import { View, useColorScheme } from "react-native";
+import { StatusBar } from "react-native";
 import { ThemeProvider } from "styled-components/native";
 import * as SplashScreen from "expo-splash-screen";
 import { Wrapper } from "./styles";
@@ -30,6 +30,7 @@ export default function RootLayout() {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={darkTheme}>
         <Wrapper onLayout={onLayoutRootView}>
+          <StatusBar backgroundColor={darkTheme.background} />
           <Slot />
         </Wrapper>
       </ThemeProvider>
