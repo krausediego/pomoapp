@@ -1,5 +1,9 @@
-import { Redirect } from "expo-router";
+import React from 'react';
 
-export default function Root() {
+import { Redirect } from 'expo-router';
+
+const Root: React.FC = () => {
   return <Redirect href="/getStarted/" />;
-}
+};
+
+export default Root;

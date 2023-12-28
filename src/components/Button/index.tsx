@@ -1,23 +1,26 @@
-import { forwardRef, memo, useEffect, useRef } from "react";
-import { type PressableProps, Animated, Easing } from "react-native";
-import {
-  ButtonStyle,
-  ButtonStyleProps,
-  Label,
-  LeftWrapper,
-  Spinner,
-} from "./styles";
+import React, { useEffect, useRef } from 'react';
+import { type PressableProps, Animated, Easing } from 'react-native';
 
-interface ButtonProps extends PressableProps, ButtonStyleProps {
+import * as S from './styles';
+
+interface ButtonProps extends PressableProps, S.ButtonStyleProps {
   children: string;
   leftIcon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
   isLoading?: boolean;
+  color?: 'primary' | 'secondary' | 'tertiary';
 }
 
-const ButtonRef = (
-  { children, leftIcon, fullWidth, isLoading, disabled, ...rest }: ButtonProps,
-  ref: any
-) => {
+export const Button: React.FC<ButtonProps> = ({
+  children,
+  leftIcon,
+  rightIcon,
+  fullWidth,
+  isLoading,
+  disabled,
+  color,
+  ...rest
+}) => {
   const spinValue = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -28,36 +31,38 @@ const ButtonRef = (
           duration: 1000,
           easing: Easing.linear,
           useNativeDriver: false,
-        })
+        }),
       ).start();
     } else {
       spinValue.setValue(0);
     }
-  }, [isLoading]);
+  }, [isLoading, spinValue]);
 
   const spin = spinValue.interpolate({
     inputRange: [0, 1],
-    outputRange: ["0deg", "360deg"],
+    outputRange: ['0deg', '360deg'],
   });
 
   return (
-    <ButtonStyle
-      ref={ref}
+    <S.ButtonStyle
       fullWidth={fullWidth}
       disabled={disabled}
       isLoading={isLoading}
-      {...rest}
-    >
-      {leftIcon && <LeftWrapper fullWidth={fullWidth}>{leftIcon}</LeftWrapper>}
+      color={color}
+      {...rest}>
+      {leftIcon && (
+        <S.LeftWrapper fullWidth={fullWidth}>{leftIcon}</S.LeftWrapper>
+      )}
       {isLoading ? (
         <Animated.View style={{ transform: [{ rotate: spin }] }}>
-          <Spinner name="spinner-3" size={40} />
+          <S.Spinner name="spinner-3" size={40} />
         </Animated.View>
       ) : (
-        <Label>{children}</Label>
+        <S.Label>{children}</S.Label>
       )}
-    </ButtonStyle>
+      {rightIcon && (
+        <S.RightWrapper fullWidth={fullWidth}>{rightIcon}</S.RightWrapper>
+      )}
+    </S.ButtonStyle>
   );
 };
-
-export const Button = memo(forwardRef(ButtonRef));

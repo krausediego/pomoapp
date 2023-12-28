@@ -1,6 +1,7 @@
-import Svg, { G, Path, Defs, ClipPath, SvgProps } from "react-native-svg";
+import React from 'react';
+import Svg, { G, Path, Defs, ClipPath, SvgProps } from 'react-native-svg';
 
-export const FacebookLogo = ({ ...props }: SvgProps) => (
+export const FacebookLogo = ({ ...props }: SvgProps): React.JSX.Element => (
   <Svg viewBox="0 0 256 256" fill="none" {...props}>
     <G clipPath="url(#a)">
       <Path

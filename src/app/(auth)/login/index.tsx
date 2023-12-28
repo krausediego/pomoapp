@@ -1,20 +1,23 @@
-import { Button, Divider, Input, SpinnerModal } from "@/components";
-import * as S from "./styles";
-import { Link, Stack, router } from "expo-router";
-import { FacebookLogo, GoogleLogo } from "@/utils/svg";
-import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { useLoginMutation } from "@/hooks/auth";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { LoginProps } from "@/services/auth";
-import * as Yup from "yup";
+import React from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+
+import { Button, Divider, Input, SpinnerModal } from '@/components';
+import { useLoginMutation } from '@/hooks/auth';
+import { LoginProps } from '@/services/auth';
+import { FacebookLogo, GoogleLogo } from '@/utils/svg';
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Stack, router } from 'expo-router';
+import * as Yup from 'yup';
+
+import * as S from './styles';
 
 const schema = Yup.object().shape({
-  email: Yup.string().email("Email inválido").required("Campo obrigatório"),
-  password: Yup.string().required("Campo obrigatório"),
+  email: Yup.string().email('Email inválido').required('Campo obrigatório'),
+  password: Yup.string().required('Campo obrigatório'),
 });
 
-export default function Login() {
+const Login: React.FC = () => {
   const {
     control,
     handleSubmit,
@@ -27,24 +30,24 @@ export default function Login() {
 
   const SocialButtons = [
     {
-      label: "Entre com Google",
+      label: 'Entre com Google',
       icon: <GoogleLogo width={24} height={24} />,
     },
     {
-      label: "Entre com Apple",
+      label: 'Entre com Apple',
       icon: <FontAwesome5 name="apple" size={24} color="white" />,
     },
     {
-      label: "Entre com Facebook",
+      label: 'Entre com Facebook',
       icon: <FacebookLogo width={24} height={24} />,
     },
   ];
 
-  const submitForm: SubmitHandler<LoginProps> = async (values) => {
+  const submitForm: SubmitHandler<LoginProps> = async values => {
     try {
       await mutateAsync(values);
 
-      router.replace("/pomodoro/");
+      router.replace('/pomodoro/');
     } catch (error) {
       console.error(error);
     }
@@ -52,7 +55,7 @@ export default function Login() {
 
   return (
     <S.Container>
-      <Stack.Screen options={{ title: "Entrar" }} />
+      <Stack.Screen options={{ title: 'Entrar' }} />
 
       <S.ContentWrapper>
         <S.Title>Entre no Pomo APP</S.Title>
@@ -100,4 +103,6 @@ export default function Login() {
       )}
     </S.Container>
   );
-}
+};
+
+export default Login;

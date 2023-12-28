@@ -1,13 +1,22 @@
-import styled, { css } from "styled-components/native";
-import { MaterialIcons, Ionicons } from "@expo/vector-icons";
+import { MaterialIcons, Ionicons } from '@expo/vector-icons';
+import styled, { css } from 'styled-components/native';
 
 interface InputStyledProps {
   error?: boolean;
 }
 
-export const Container = styled.View`
+interface ContainerProps {
+  fullWidth?: boolean;
+}
+
+export const Container = styled.View<ContainerProps>`
   display: flex;
   gap: 10px;
+  ${({ fullWidth }) =>
+    fullWidth &&
+    css`
+      width: 100%;
+    `}
 `;
 
 export const Wrapper = styled.View`
@@ -52,7 +61,7 @@ export const MessageLabel = styled.Text`
 export const InputStyled = styled.TextInput.attrs<InputStyledProps>(
   ({ theme }) => ({
     placeholderTextColor: theme.placeholder,
-  })
+  }),
 )`
   background-color: ${({ theme }) => theme.secondary};
   height: 58px;

@@ -1,13 +1,15 @@
-import {
+import React, {
   ReactNode,
   createContext,
   useContext,
   useEffect,
+  useMemo,
   useState,
-} from "react";
-import { Session } from "@supabase/supabase-js";
-import { supabase } from "@/infra";
-import { router } from "expo-router";
+} from 'react';
+
+import { supabase } from '@/infra';
+import { Session } from '@supabase/supabase-js';
+import { router } from 'expo-router';
 
 interface AuthContextProps {
   session: Session | null;
@@ -19,16 +21,16 @@ interface AuthProviderProps {
 
 const AuthContext = createContext({} as AuthContextProps);
 
-const AuthProvider = ({ children }: AuthProviderProps) => {
+const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [session, setSession] = useState<Session | null>(null);
 
-  const getSession = async () => {
+  const getSession = async (): Promise<void> => {
     const {
       data: { session: authSession },
     } = await supabase.auth.getSession();
 
     if (!authSession) {
-      router.replace("/login/");
+      router.replace('/login/');
     }
 
     setSession(authSession);
@@ -38,28 +40,26 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     getSession();
   }, []);
 
-  useEffect(() => {
-    supabase.auth.onAuthStateChange((event, stateSession) => {
-      const handleAuthChange = async () => {};
-      handleAuthChange();
+  const sessionMemo = useMemo(() => ({ session }), [session]);
 
-      if (event === "SIGNED_IN") {
+  useEffect(() => {
+    supabase.auth.onAuthStateChange((event, stateSession): void => {
+      if (event === 'SIGNED_IN') {
         setSession(stateSession);
       }
 
-      if (event === "SIGNED_OUT") {
+      if (event === 'SIGNED_OUT') {
         setSession(null);
-        router.replace("/login/");
-        return;
+        router.replace('/login/');
       }
     });
   }, []);
 
   return (
-    <AuthContext.Provider value={{ session }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={sessionMemo}>{children}</AuthContext.Provider>
   );
 };
 
-const useAuth = () => useContext(AuthContext);
+const useAuth = (): AuthContextProps => useContext(AuthContext);
 
 export { useAuth, AuthProvider };

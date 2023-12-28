@@ -1,54 +1,46 @@
-import { Text } from "react-native";
-import * as S from "./styles";
-import { Stack } from "expo-router";
-import CircularProgress, {
-  ProgressRef,
-} from "react-native-circular-progress-indicator";
-import { Button } from "@/components";
-import { useEffect, useRef } from "react";
-import { darkTheme } from "@/styles/theme";
+import React, { useRef, useState } from 'react';
+import { ProgressRef } from 'react-native-circular-progress-indicator';
 
-export default function PomodoroScreen() {
+import { Button, StackHeader } from '@/components';
+import { AntDesign, Entypo } from '@expo/vector-icons';
+
+import { PomodoroTimer } from './components/Timer';
+import * as S from './styles';
+
+const PomodoroScreen: React.FC = () => {
   const progressRef = useRef<ProgressRef>(null);
-
-  const maxValue = 10;
-
-  useEffect(() => {
-    progressRef.current?.pause();
-  }, [progressRef]);
+  const [restart, setRestart] = useState(false);
 
   return (
     <S.Container>
       <S.WrapperPrimary />
-      <Stack.Screen options={{ headerShown: false }} />
-      <Text style={{ color: "white" }}>Pomodoro</Text>
-      <CircularProgress
-        ref={progressRef}
-        // showProgressValue={false}
-        value={0}
-        radius={140}
-        maxValue={maxValue}
-        initialValue={maxValue}
-        progressValueColor={"#fff"}
-        activeStrokeColor={darkTheme.primary}
-        activeStrokeWidth={30}
-        inActiveStrokeWidth={30}
-        duration={maxValue * 1000}
-        onAnimationComplete={() => alert("time out")}
-        // progressFormatter={(value: number) => {
-        //   return value;
-        // }}
-      />
-      <Button
-        onPress={() => {
-          progressRef.current?.reAnimate();
-          progressRef.current?.pause();
-        }}
-      >
-        Restart
-      </Button>
-      <Button onPress={() => progressRef.current?.pause()}>Pause</Button>
-      <Button onPress={() => progressRef.current?.play()}>Start</Button>
+      <StackHeader background="primary" />
+      <S.Header>
+        <Button
+          color="secondary"
+          fullWidth
+          rightIcon={<AntDesign name="down" color="white" size={18} />}>
+          Selecione a task
+        </Button>
+      </S.Header>
+      <PomodoroTimer controller={progressRef} timerValue={1500} />
+      <S.Footer>
+        <Button
+          onPress={() => {
+            if (restart) {
+              setRestart(false);
+              progressRef.current?.reAnimate();
+              return progressRef.current?.pause();
+            }
+
+            progressRef.current?.play();
+          }}
+          leftIcon={<Entypo name="controller-play" color="white" size={30} />}>
+          {restart ? 'Reiniciar' : 'Iniciar Timer'}
+        </Button>
+      </S.Footer>
     </S.Container>
   );
-}
+};
+
+export default PomodoroScreen;

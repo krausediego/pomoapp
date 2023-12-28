@@ -1,5 +1,5 @@
-import { supabase } from "@/infra";
-import { AuthResponse } from "@supabase/supabase-js";
+import { supabase } from '@/infra';
+import { AuthResponse } from '@supabase/supabase-js';
 
 export interface LoginProps {
   email: string;

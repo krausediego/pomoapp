@@ -1,2 +1,2 @@
-export * from "./FacebookLogo";
-export * from "./GoogleLogo";
+export * from './FacebookLogo';
+export * from './GoogleLogo';

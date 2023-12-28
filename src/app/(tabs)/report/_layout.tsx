@@ -1,5 +1,9 @@
-import { Stack } from "expo-router";
+import React from 'react';
 
-export default function ReportLayout() {
+import { Stack } from 'expo-router';
+
+const ReportLayout: React.FC = () => {
   return <Stack />;
-}
+};
+
+export default ReportLayout;

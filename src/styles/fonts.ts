@@ -8,7 +8,7 @@ import {
   Urbanist_700Bold,
   Urbanist_800ExtraBold,
   Urbanist_900Black,
-} from "@expo-google-fonts/urbanist";
+} from '@expo-google-fonts/urbanist';
 
 export const fonts = {
   Urbanist_100Thin,

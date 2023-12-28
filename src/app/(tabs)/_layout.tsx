@@ -1,17 +1,20 @@
-import { AuthProvider } from "@/contexts";
-import * as S from "./styles";
-import { Tabs } from "expo-router";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+/* eslint-disable react/no-unstable-nested-components */
+import React from 'react';
 
-import * as NavigationBar from "expo-navigation-bar";
-import * as Device from "expo-device";
-import { darkTheme } from "@/styles/theme";
+import { AuthProvider } from '@/contexts';
+import { darkTheme } from '@/styles/theme';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import * as Device from 'expo-device';
+import * as NavigationBar from 'expo-navigation-bar';
+import { Tabs } from 'expo-router';
 
-if (Device.osName === "Android") {
+import * as S from './styles';
+
+if (Device.osName === 'Android') {
   NavigationBar.setBackgroundColorAsync(darkTheme.background);
 }
 
-export default function AuthLayout() {
+const AuthLayout: React.FC = () => {
   return (
     <AuthProvider>
       <S.Container>
@@ -21,12 +24,12 @@ export default function AuthLayout() {
             options={{
               tabBarIcon: ({ size, color, focused }) => (
                 <MaterialCommunityIcons
-                  name={focused ? "clock-time-five" : "clock-time-five-outline"}
+                  name={focused ? 'clock-time-five' : 'clock-time-five-outline'}
                   size={size}
                   color={color}
                 />
               ),
-              title: "Pomodoro",
+              title: 'Pomodoro',
             }}
           />
           <Tabs.Screen
@@ -34,12 +37,12 @@ export default function AuthLayout() {
             options={{
               tabBarIcon: ({ size, color, focused }) => (
                 <MaterialCommunityIcons
-                  name={focused ? "view-dashboard" : "view-dashboard-outline"}
+                  name={focused ? 'view-dashboard' : 'view-dashboard-outline'}
                   size={size}
                   color={color}
                 />
               ),
-              title: "Gerenciar",
+              title: 'Gerenciar',
             }}
           />
           <Tabs.Screen
@@ -47,12 +50,12 @@ export default function AuthLayout() {
             options={{
               tabBarIcon: ({ size, color, focused }) => (
                 <MaterialCommunityIcons
-                  name={focused ? "calendar-month" : "calendar-month-outline"}
+                  name={focused ? 'calendar-month' : 'calendar-month-outline'}
                   size={size}
                   color={color}
                 />
               ),
-              title: "Calendário",
+              title: 'Calendário',
             }}
           />
           <Tabs.Screen
@@ -60,12 +63,12 @@ export default function AuthLayout() {
             options={{
               tabBarIcon: ({ size, color, focused }) => (
                 <MaterialCommunityIcons
-                  name={focused ? "chart-box" : "chart-box-outline"}
+                  name={focused ? 'chart-box' : 'chart-box-outline'}
                   size={size}
                   color={color}
                 />
               ),
-              title: "Relatório",
+              title: 'Relatório',
             }}
           />
           <Tabs.Screen
@@ -73,16 +76,18 @@ export default function AuthLayout() {
             options={{
               tabBarIcon: ({ size, color, focused }) => (
                 <MaterialCommunityIcons
-                  name={focused ? "cog" : "cog-outline"}
+                  name={focused ? 'cog' : 'cog-outline'}
                   size={size}
                   color={color}
                 />
               ),
-              title: "Configurações",
+              title: 'Configurações',
             }}
           />
         </S.TabsStyle>
       </S.Container>
     </AuthProvider>
   );
-}
+};
+
+export default AuthLayout;

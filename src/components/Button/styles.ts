@@ -1,8 +1,8 @@
-import styled, { css } from "styled-components/native";
-import { EvilIcons } from "@expo/vector-icons";
+import { EvilIcons } from '@expo/vector-icons';
+import styled, { css } from 'styled-components/native';
 
 export interface ButtonStyleProps {
-  color?: "primary" | "secondary" | "tertiary";
+  color?: 'primary' | 'secondary' | 'tertiary';
   fullWidth?: boolean;
   disabled?: boolean | null;
   isLoading?: boolean;
@@ -22,18 +22,18 @@ export const ButtonStyle = styled.Pressable<ButtonStyleProps>`
       opacity: 0.5;
     `}
   ${({ color }) =>
-    (!color || color === "primary") &&
+    (!color || color === 'primary') &&
     css`
       background-color: ${({ theme }) => theme.primary};
     `};
   ${({ color }) =>
-    color === "secondary" &&
+    color === 'secondary' &&
     css`
       background-color: ${({ theme }) => theme.secondary};
       border: 1px solid ${({ theme }) => theme.tertiary};
     `};
   ${({ color }) =>
-    color === "tertiary" &&
+    color === 'tertiary' &&
     css`
       background-color: ${({ theme }) => theme.tertiary};
     `};
@@ -48,12 +48,21 @@ export const ButtonStyle = styled.Pressable<ButtonStyleProps>`
         `}
 `;
 
-export const LeftWrapper = styled.View<Pick<ButtonStyleProps, "fullWidth">>`
+export const LeftWrapper = styled.View<Pick<ButtonStyleProps, 'fullWidth'>>`
   ${({ fullWidth }) =>
     fullWidth &&
     css`
       position: absolute;
       left: 16px;
+    `}
+`;
+
+export const RightWrapper = styled.View<Pick<ButtonStyleProps, 'fullWidth'>>`
+  ${({ fullWidth }) =>
+    fullWidth &&
+    css`
+      position: absolute;
+      right: 30px;
     `}
 `;
 

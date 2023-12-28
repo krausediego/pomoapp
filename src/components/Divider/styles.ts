@@ -1,4 +1,6 @@
-import styled from "styled-components/native";
+import styled, { css } from 'styled-components/native';
+
+import { DividerProps } from '.';
 
 export const Container = styled.View`
   flex-direction: row;
@@ -7,10 +9,15 @@ export const Container = styled.View`
   margin-right: 8px;
 `;
 
-export const Line = styled.View`
+export const Line = styled.View<DividerProps>`
   flex: 1;
   height: 1px;
-  background-color: ${({ theme }) => theme.tertiary};
+  background-color: ${({ theme, color }) => color && theme[color]};
+  ${({ label }) =>
+    !label &&
+    css`
+      width: 100%;
+    `}
 `;
 
 export const Label = styled.Text`

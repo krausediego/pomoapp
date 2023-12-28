@@ -1,5 +1,9 @@
-import { Stack } from "expo-router";
+import React from 'react';
 
-export default function SettingsLayout() {
+import { Stack } from 'expo-router';
+
+const SettingsLayout: React.FC = () => {
   return <Stack />;
-}
+};
+
+export default SettingsLayout;

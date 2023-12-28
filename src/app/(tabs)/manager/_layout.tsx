@@ -1,5 +1,9 @@
-import { Stack } from "expo-router";
+import React from 'react';
 
-export default function ManagerLayout() {
+import { Stack } from 'expo-router';
+
+const ManagerLayout: React.FC = () => {
   return <Stack />;
-}
+};
+
+export default ManagerLayout;

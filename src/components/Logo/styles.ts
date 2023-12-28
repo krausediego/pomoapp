@@ -1,6 +1,9 @@
-import styled from "styled-components/native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import styled from 'styled-components/native';
 
-export const LogoStyle = styled(MaterialCommunityIcons)`
-  color: ${({ theme }) => theme.primary};
+import { LogoProps } from '.';
+
+export const LogoStyle = styled(MaterialCommunityIcons)<LogoProps>`
+  color: ${({ theme, logoColor }) =>
+    logoColor === 'primary' ? theme.primary : 'white'};
 `;

@@ -1,6 +1,7 @@
-import Svg, { Path, SvgProps } from "react-native-svg";
+import React from 'react';
+import Svg, { Path, SvgProps } from 'react-native-svg';
 
-export const GoogleLogo = ({ ...props }: SvgProps) => (
+export const GoogleLogo = ({ ...props }: SvgProps): React.JSX.Element => (
   <Svg viewBox="0 0 48 48" fill="none" {...props}>
     <Path
       fill="#FFC107"

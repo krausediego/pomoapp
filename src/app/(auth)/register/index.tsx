@@ -1,20 +1,23 @@
-import { Link, Stack } from "expo-router";
-import * as S from "./styles";
-import { Button, Divider, Input, SpinnerModal } from "@/components";
-import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
-import { FacebookLogo, GoogleLogo } from "@/utils/svg";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as Yup from "yup";
-import { RegisterProps } from "@/services/auth";
-import { useRegisterMutation } from "@/hooks/auth";
+import React from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+
+import { Button, Divider, Input, SpinnerModal } from '@/components';
+import { useRegisterMutation } from '@/hooks/auth';
+import { RegisterProps } from '@/services/auth';
+import { FacebookLogo, GoogleLogo } from '@/utils/svg';
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Link, Stack } from 'expo-router';
+import * as Yup from 'yup';
+
+import * as S from './styles';
 
 const schema = Yup.object().shape({
-  email: Yup.string().email("Email inválido").required("Campo obrigatório"),
-  password: Yup.string().required("Campo obrigatório"),
+  email: Yup.string().email('Email inválido').required('Campo obrigatório'),
+  password: Yup.string().required('Campo obrigatório'),
 });
 
-export default function Register() {
+const Register: React.FC = () => {
   const {
     control,
     handleSubmit,
@@ -27,20 +30,20 @@ export default function Register() {
 
   const SocialButtons = [
     {
-      label: "Entre com Google",
+      label: 'Entre com Google',
       icon: <GoogleLogo width={24} height={24} />,
     },
     {
-      label: "Entre com Apple",
+      label: 'Entre com Apple',
       icon: <FontAwesome5 name="apple" size={24} color="white" />,
     },
     {
-      label: "Entre com Facebook",
+      label: 'Entre com Facebook',
       icon: <FacebookLogo width={24} height={24} />,
     },
   ];
 
-  const submitForm: SubmitHandler<RegisterProps> = async (values) => {
+  const submitForm: SubmitHandler<RegisterProps> = async values => {
     try {
       await mutateAsync(values);
     } catch (error) {
@@ -50,7 +53,7 @@ export default function Register() {
 
   return (
     <S.Container>
-      <Stack.Screen options={{ title: "Cadastre-se" }} />
+      <Stack.Screen options={{ title: 'Cadastre-se' }} />
 
       <S.ContentWrapper>
         <S.Title>Comece no Pomo APP</S.Title>
@@ -101,4 +104,6 @@ export default function Register() {
       )}
     </S.Container>
   );
-}
+};
+
+export default Register;

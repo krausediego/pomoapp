@@ -1,15 +1,25 @@
-import { Container, Label, Line } from "./styles";
+import React from 'react';
 
-interface DividerProps {
-  label: string;
+import { Container, Label, Line } from './styles';
+
+export interface DividerProps {
+  label?: string;
+  color?: 'title' | 'secondary' | 'tertiary';
 }
 
-export const Divider = ({ label }: DividerProps) => {
+export const Divider: React.FC<DividerProps> = ({
+  label,
+  color = 'tertiary',
+}) => {
   return (
     <Container>
-      <Line />
-      <Label>{label}</Label>
-      <Line />
+      <Line label={label} color={color} />
+      {label && (
+        <>
+          <Label>{label}</Label>
+          <Line />
+        </>
+      )}
     </Container>
   );
 };

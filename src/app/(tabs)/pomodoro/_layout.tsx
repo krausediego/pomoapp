@@ -1,11 +1,15 @@
-import { Stack } from "expo-router";
-import { StatusBar, Platform } from "react-native";
+import React from 'react';
+import { StatusBar } from 'react-native';
 
-export default function PomodoroLayout() {
+import { Stack } from 'expo-router';
+
+const PomodoroLayout: React.FC = () => {
   return (
     <>
       <StatusBar backgroundColor="#FF6347" />
       <Stack />
     </>
   );
-}
+};
+
+export default PomodoroLayout;

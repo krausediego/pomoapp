@@ -1,15 +1,17 @@
-import { Container, StackStyle } from "./styles";
-import { supabase } from "@/infra";
-import { useEffect } from "react";
-import { router } from "expo-router";
+import React, { useEffect } from 'react';
 
-export default function AuthLayout() {
+import { supabase } from '@/infra';
+import { router } from 'expo-router';
+
+import { Container, StackStyle } from './styles';
+
+const AuthLayout: React.FC = () => {
   const getSession = async () => {
     const {
       data: { session: authSession },
     } = await supabase.auth.getSession();
 
-    if (authSession) router.replace("/pomodoro/");
+    if (authSession) router.replace('/pomodoro/');
   };
 
   useEffect(() => {
@@ -21,4 +23,6 @@ export default function AuthLayout() {
       <StackStyle />
     </Container>
   );
-}
+};
+
+export default AuthLayout;

@@ -1,40 +1,48 @@
-import { forwardRef, useImperativeHandle, useRef, useState } from "react";
-import { type TextInputProps } from "react-native";
-import * as S from "./styles";
-import { MaterialIcons } from "@expo/vector-icons";
-import { Controller } from "react-hook-form";
+import React, {
+  forwardRef,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from 'react';
+import { Controller } from 'react-hook-form';
+import { type TextInputProps, TextInput } from 'react-native';
+
+import { MaterialIcons } from '@expo/vector-icons';
+
+import * as S from './styles';
 
 interface InputProps extends TextInputProps {
-  label: string;
+  label?: string;
   leftIcon: keyof typeof MaterialIcons.glyphMap;
-  control: any;
+  control?: any;
   name: string;
   message?: string;
+  fullWidth?: boolean;
 }
 
-const InputRef = (
+const InputRef: React.ForwardRefRenderFunction<TextInput, InputProps> = (
   {
     label,
     leftIcon,
     secureTextEntry,
     control,
     name,
-    value,
     message,
+    fullWidth,
     ...rest
-  }: InputProps,
-  ref: any
+  },
+  ref: any,
 ) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const showPasswordIcon = secureTextEntry;
   const inputElementRef = useRef<any>(null);
 
-  const handleShowPassword = () => {
-    return setShowPassword(!showPassword);
+  const handleShowPassword = (): void => {
+    setShowPassword(!showPassword);
   };
 
-  const handleInputPasswordType = () => {
+  const handleInputPasswordType = (): boolean => {
     if (!secureTextEntry) {
       return false;
     }
@@ -53,8 +61,8 @@ const InputRef = (
       name={name}
       render={({ field: { onChange, value, ref } }) => {
         return (
-          <S.Container>
-            <S.Label>{label}</S.Label>
+          <S.Container fullWidth={fullWidth}>
+            {label && <S.Label>{label}</S.Label>}
             <S.Wrapper>
               <S.LeftIconWrapper>
                 <S.Icon1 name={leftIcon} size={18} />
@@ -71,7 +79,7 @@ const InputRef = (
                 <S.RightIconWrapper>
                   <S.Icon2
                     onPress={handleShowPassword}
-                    name={showPassword ? "eye-outline" : "eye-off-outline"}
+                    name={showPassword ? 'eye-outline' : 'eye-off-outline'}
                     size={18}
                   />
                 </S.RightIconWrapper>

@@ -1,25 +1,28 @@
-import { Button, Logo } from "@/components";
-import * as S from "./styles";
-import { FontAwesome5 } from "@expo/vector-icons";
-import { FacebookLogo, GoogleLogo } from "@/utils/svg";
-import { Link, Stack } from "expo-router";
+import React from 'react';
 
-export default function GetStartedScreen() {
+import { Button, Logo } from '@/components';
+import { FacebookLogo, GoogleLogo } from '@/utils/svg';
+import { FontAwesome5 } from '@expo/vector-icons';
+import { Stack, router } from 'expo-router';
+
+import * as S from './styles';
+
+const GetStartedScreen: React.FC = () => {
   const SocialButtons = [
     {
-      label: "Entre com Google",
+      label: 'Entre com Google',
       icon: <GoogleLogo width={24} height={24} />,
     },
     {
-      label: "Entre com Apple",
+      label: 'Entre com Apple',
       icon: <FontAwesome5 name="apple" size={24} color="white" />,
     },
     {
-      label: "Entre com Facebook",
+      label: 'Entre com Facebook',
       icon: <FacebookLogo width={24} height={24} />,
     },
     {
-      label: "Entre com Twitter",
+      label: 'Entre com Twitter',
       icon: <FontAwesome5 name="twitter" size={24} color="#239AF0" />,
     },
   ];
@@ -33,26 +36,30 @@ export default function GetStartedScreen() {
         <S.Content>Entre agora mesmo em sua conta</S.Content>
       </S.Wrapper>
       <S.Wrapper>
-        {SocialButtons.map(({ label, icon }, index) => {
+        {SocialButtons.map(({ label, icon }) => {
           return (
-            <Button key={index} color="secondary" fullWidth leftIcon={icon}>
+            <Button key={label} color="secondary" fullWidth leftIcon={icon}>
               {label}
             </Button>
           );
         })}
       </S.Wrapper>
       <S.Wrapper>
-        <Link href="/register/" asChild>
-          <Button color="primary" fullWidth>
-            Cadastre-se
-          </Button>
-        </Link>
-        <Link href="/login/" asChild>
-          <Button color="tertiary" fullWidth>
-            Entrar
-          </Button>
-        </Link>
+        <Button
+          onPress={() => router.replace('/register/')}
+          color="primary"
+          fullWidth>
+          Cadastre-se
+        </Button>
+        <Button
+          onPress={() => router.replace('/login/')}
+          color="tertiary"
+          fullWidth>
+          Entrar
+        </Button>
       </S.Wrapper>
     </S.Container>
   );
-}
+};
+
+export default GetStartedScreen;

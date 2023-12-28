@@ -1,5 +1,9 @@
-import { Stack } from "expo-router";
+import React from 'react';
 
-export default function CalendarLayout() {
+import { Stack } from 'expo-router';
+
+const CalendarLayout: React.FC = () => {
   return <Stack />;
-}
+};
+
+export default CalendarLayout;
